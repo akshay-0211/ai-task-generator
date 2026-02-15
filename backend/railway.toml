@@ -5,3 +5,8 @@ dockerfilePath = "Dockerfile"
 [deploy]
 startCommand = "npm start"
 restartPolicyType = "ON_FAILURE"
+
+# Reference the PostgreSQL service for DATABASE_URL
+[[build.buildArgs]]
+name = "DATABASE_URL"
+value = "${{Postgres.DATABASE_URL}}"
