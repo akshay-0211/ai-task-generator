@@ -3,7 +3,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+// Runtime API URL detection
+const getApiUrl = () => {
+    if (typeof window !== 'undefined' && window.location.hostname === 'mini-planning-tool.up.railway.app') {
+        return 'https://ai-task-generator-production.up.railway.app';
+    }
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+};
+
+const API_URL = getApiUrl();
 
 interface HealthStatus {
     backend: boolean;
