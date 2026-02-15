@@ -13,7 +13,7 @@ export async function buildApp() {
 
     // Register plugins
     await fastify.register(cors, {
-        origin: process.env.NODE_ENV === 'production' ? true : 'http://localhost:3000',
+        origin: true, // Allow all origins
         credentials: true,
     });
 
