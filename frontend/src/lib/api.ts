@@ -1,4 +1,17 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+// Runtime API URL detection for Railway deployment
+const getApiUrl = () => {
+    // In browser, check if we're on Railway production
+    if (typeof window !== 'undefined') {
+        const hostname = window.location.hostname;
+        if (hostname === 'mini-planning-tool.up.railway.app') {
+            return 'https://ai-task-generator-production.up.railway.app';
+        }
+    }
+    // Fallback to env var or localhost
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+};
+
+const API_URL = getApiUrl();
 
 export interface Spec {
     id: string;
