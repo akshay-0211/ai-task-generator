@@ -6,6 +6,10 @@ RUN apk add --no-cache openssl
 
 WORKDIR /app
 
+# Accept DATABASE_URL as build argument (Railway will pass this)
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Copy package files
 COPY package*.json ./
 COPY prisma ./prisma/
@@ -16,7 +20,7 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Generate Prisma client
+# Generate Prisma client with Railway DATABASE_URL
 RUN npx prisma generate
 
 # Build TypeScript
