@@ -3,6 +3,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Accept build argument for API URL (Railway passes env vars as build args)
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
 # Copy package files
 COPY package*.json ./
 
@@ -12,11 +16,7 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Accept build argument for API URL
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-
-# Build Next.js app
+# Build Next.js app (NEXT_PUBLIC_API_URL will be baked in)
 RUN npm run build
 
 # Production stage
