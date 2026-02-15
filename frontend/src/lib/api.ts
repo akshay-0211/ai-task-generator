@@ -4,7 +4,7 @@ const getApiUrl = () => {
     if (typeof window !== 'undefined') {
         const hostname = window.location.hostname;
         if (hostname === 'mini-planning-tool.up.railway.app') {
-            return 'https://ai-task-generator-production.up.railway.app';
+            return 'https://ai-task-generator-production-a152.up.railway.app';
         }
     }
     // Fallback to env var or localhost
